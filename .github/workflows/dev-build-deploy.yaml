@@ -1,0 +1,26 @@
+name: Dev Build and Deploy to ArgoCD
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and push Polybot image to DockerHub
+      run: |
+        cd polybot
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/my_yolo5_k8s_dev:v2
+        docker build -t $IMAGE_NAME .
+        docker push $IMAGE_NAME
+
+    - name: Deploy to Dev using ArgoCD
+      run: |
+        argocd app sync polybot-dev --prune --force
