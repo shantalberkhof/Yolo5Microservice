@@ -1,4 +1,4 @@
 pyyaml
 loguru
 boto3
-detect
+flask
