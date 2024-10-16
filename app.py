@@ -99,12 +99,12 @@ def consume():
 
                     # TODO download img_name from S3, store the local image path in original_img_path -------------
 
-                    photos_dir = Path('/home/ubuntu/INTPolybotServiceAWS/yolo5/photos')
+                    photos_dir = Path('/home/ubuntu/Yolo5Microservice/photos')
                     photos_dir.mkdir(parents=True, exist_ok=True)  # Creates the directory if it doesn't exist
 
                     image_name_s3 = object_key.split("/")[-1]
                     logger.info(f'image_name_s3: {image_name_s3}')
-                    original_img_path = f'{photos_dir}/{image_name_s3}' # /home/ubuntu/INTPolybotServiceAWS/yolo5/photos/ + image_name_s3
+                    original_img_path = f'{photos_dir}/{image_name_s3}' # /home/ubuntu/..../photos/ + image_name_s3
                     logger.info(f'Download path: {original_img_path}')
 
                     try:
@@ -189,9 +189,9 @@ def consume():
                         try:
                             # Perform the GET request to the `/results` endpoint with the predictionId as a query parameter
                             logger.info(f'TRY TO PERFORM A GET REQUEST 1: {callback_url}?predictionId={prediction_id}')
-                          # response = requests.get(callback_url, params={'predictionId': prediction_id}, timeout=10)  # Timeout after 10 seconds
                             if prediction_id:
-                                response = requests.get(f"{callback_url}?predictionId={prediction_id}", timeout=10)
+                                # response = requests.get(f"{callback_url}?predictionId={prediction_id}", timeout=10)
+                                response = requests.post(f"{callback_url}?predictionId={prediction_id}", timeout=10) # POST request new
                                 logger.info(f'SQS Response: {response}')
                                 logger.info(f'prediction_id is: {prediction_id}')
                             else:
