@@ -190,8 +190,7 @@ def consume():
                             # Perform the GET request to the `/results` endpoint with the predictionId as a query parameter
                             logger.info(f'TRY TO PERFORM A GET REQUEST 1: {callback_url}?predictionId={prediction_id}')
                             if prediction_id:
-                                # response = requests.get(f"{callback_url}?predictionId={prediction_id}", timeout=10)
-                                response = requests.post(f"{callback_url}?predictionId={prediction_id}", timeout=10) # POST request new
+                                response = requests.get(f"{callback_url}?predictionId={prediction_id}", timeout=10)
                                 logger.info(f'SQS Response: {response}')
                                 logger.info(f'prediction_id is: {prediction_id}')
                             else:
