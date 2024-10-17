@@ -184,7 +184,7 @@ def consume():
 
                         #callback_url = 'http://shantal-aws-alb-1835467939.us-east-2.elb.amazonaws.com/results'  # YOLO5 will send a POST request to this URL CHECK
                         # callback_url = f'http://{ALB_URL}/results?predictionId={prediction_id}'
-                        callback_url = f'http://{ALB_URL}/results'
+                        callback_url = f'http://{ALB_URL}:8443/results' # added :8443
 
                         try:
                             # Perform the GET request to the `/results` endpoint with the predictionId as a query parameter
