@@ -1,10 +1,9 @@
-name: Dev Build and Deploy to ArgoCD
+name: Dev Build and Deploy
 
 on:
-  push:
+  push: # REGULAR
     branches:
       - dev
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +19,3 @@ jobs:
         IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/my_yolo5_k8s_dev:v2
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
-
-    - name: Deploy to Dev using ArgoCD
-      run: |
-        argocd app sync polybot-dev --prune --force

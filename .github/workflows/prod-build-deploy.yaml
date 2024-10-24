@@ -1,7 +1,7 @@
-name: Prod Build and Deploy to ArgoCD
+name: Prod Build and Deploy (when a pull request to the main branch is created)
 
 on:
-  pull_request:
+  pull_request: # ADDED
     branches:
       - prod
 
@@ -13,10 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Run Tests
-      run: |
-        pytest tests/    # Replace with your test framework and directory
-
     - name: Build and push Polybot image to DockerHub
       run: |
         cd polybot
@@ -25,13 +21,3 @@ jobs:
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
 
-#    - name: Build Docker image
-#      if: success()
-#      run: |
-#        docker build -t your-docker-repo/polybot_prod:latest .
-#        docker push your-docker-repo/polybot_prod:latest
-
-    - name: Deploy to Prod using ArgoCD
-      if: success()
-      run: |
-        argocd app sync polybot-prod --prune --force

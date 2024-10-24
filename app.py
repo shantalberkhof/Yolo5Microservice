@@ -184,13 +184,16 @@ def consume():
 
                         #callback_url = 'http://shantal-aws-alb-1835467939.us-east-2.elb.amazonaws.com/results'  # YOLO5 will send a POST request to this URL CHECK
                         # callback_url = f'http://{ALB_URL}/results?predictionId={prediction_id}'
-                        callback_url = f'http://{ALB_URL}:8443/results' # added :8443
+                        callback_url = f'http://{ALB_URL}:8443/results'
+                        # callback_url = f'https://{ALB_URL}:443/results' # New: Added :443 and https
 
                         try:
                             # Perform the GET request to the `/results` endpoint with the predictionId as a query parameter
                             logger.info(f'TRY TO PERFORM A GET REQUEST 1: {callback_url}?predictionId={prediction_id}')
                             if prediction_id:
                                 response = requests.get(f"{callback_url}?predictionId={prediction_id}", timeout=10)
+                                # response = requests.get(f"{callback_url}?predictionId={prediction_id}", verify=False,
+                                #                         timeout=30) # New: Disable SSL verification
                                 logger.info(f'SQS Response: {response}')
                                 logger.info(f'prediction_id is: {prediction_id}')
                             else:
