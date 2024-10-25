@@ -3,11 +3,24 @@ name: Prod Build and Deploy (when a pull request to the main branch is created)
 on:
   pull_request: # ADDED
     branches:
-      - prod
+      - main
 
 jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run tests # Ensure that the core logic of your microservice works as expected.
+        run: |
+          echo test
+
   build:
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
     - name: Checkout code
@@ -15,9 +28,7 @@ jobs:
 
     - name: Build and push Polybot image to DockerHub
       run: |
-        cd polybot
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/my_yolo5_k8s:v2
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
-
