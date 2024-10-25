@@ -25,6 +25,7 @@ sqs_client = boto3.client('sqs', region_name=REGION_NAME)
 s3_client = boto3.client('s3', region_name=REGION_NAME)
 dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 
+
 # table = dynamodb.Table(DYNAMODB_TABLE)
 # table = dynamodb.Table('shantal-dynamoDB-aws') # Set the table name
 table = dynamodb.Table(DYNAMODB_TABLE) # Set the table name
