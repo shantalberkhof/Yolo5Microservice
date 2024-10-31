@@ -29,7 +29,7 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
 # table = dynamodb.Table('shantal-dynamoDB-aws') # Set the table name
 table = dynamodb.Table(DYNAMODB_TABLE) # Set the table name
 
-
+# a change
 # Ensure the S3 directory exists
 def ensure_s3_directory_exists(bucket_name, prefix):
     """
