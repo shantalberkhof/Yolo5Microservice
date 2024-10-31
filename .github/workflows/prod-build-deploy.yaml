@@ -1,7 +1,7 @@
 name: Prod Build and Deploy (when a pull request to the main branch is created)
 
 on:
-  push: # ADDED
+  pull_request: # ADDED
     branches:
       - main
 
