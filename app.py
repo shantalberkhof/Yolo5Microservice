@@ -11,7 +11,7 @@ import json
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 from decimal import Decimal
 from pathlib import Path
-
+# add me to main
 images_bucket = os.environ['BUCKET_NAME'] #shantal-awsproject
 queue_name = os.environ['SQS_QUEUE_NAME'] #shantal-queue-aws
 REGION_NAME = os.environ['REGION_NAME'] # new from terraform
